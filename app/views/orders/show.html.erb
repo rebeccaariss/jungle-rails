@@ -23,7 +23,9 @@
       <tbody>
         <% @order.line_items.each do |item| %>
           <tr>
-            <td><%= image_tag item.product.image.thumb.url %></td>
+            <td style="width: 100px; height: 80px;">
+              <%= image_tag item.product.image.thumb.url, style: "width: 100%; height: auto;" %>
+            </td>
             <td><%= item.product.name %></td>
             <td><%= item.product.description %></td>
             <td><%= item.quantity %></td>
