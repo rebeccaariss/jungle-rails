@@ -5,7 +5,43 @@
   </header>
 
   <div class="order-summary jumbotron">
-    <h4>Thank you for your order!</h4>
+    <h4>Thank you for your order! Order confirmation will be sent to <%= @order.email %>.</h4>
+  </div>
+
+  <div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Unit Price</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.line_items.each do |item| %>
+          <tr>
+            <td style="width: 100px; height: 80px;">
+              <%= image_tag item.product.image.thumb.url, style: "width: 100%; height: auto;" %>
+            </td>
+            <td><%= item.product.name %></td>
+            <td><%= item.product.description %></td>
+            <td><%= item.quantity %></td>
+            <td><%= humanized_money_with_symbol(item.item_price) %></td>
+            <td><%= humanized_money_with_symbol(item.total_price) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row" colspan="3">Order Total:</th>
+          <td><%= @order.line_items.sum(:quantity) %> Items</td>
+          <td colspan="2"><%= humanized_money_with_symbol(@order.total_cents / 100.00) %></td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
