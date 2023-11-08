@@ -32,6 +32,13 @@
           </tr>
         <% end %>
       </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row" colspan="3">Order Total:</th>
+          <td><%= @order.line_items.sum(:quantity) %> Items</td>
+          <td colspan="2"><%= humanized_money_with_symbol(@order.total_cents / 100.00) %></td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 
