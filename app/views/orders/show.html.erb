@@ -9,34 +9,28 @@
   </div>
 
   <div>
-    <table class="table">
+    <table class="table table-bordered">
       <thead>
         <tr>
-          <th scope="col">Quantity</th>
-          <th scope="col">Product Name</th>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
           <th scope="col">Description</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Unit Price</th>
           <th scope="col">Total</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        <% @order.line_items.each do |item| %>
+          <tr>
+            <td><%= image_tag item.product.image.thumb.url %></td>
+            <td><%= item.product.name %></td>
+            <td><%= item.product.description %></td>
+            <td><%= item.quantity %></td>
+            <td><%= humanized_money_with_symbol(item.item_price) %></td>
+            <td><%= humanized_money_with_symbol(item.total_price) %></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   </div>
